@@ -24,3 +24,5 @@ Optional tone parameter (friendly/formal)
 Optional country-to-language localization
 
 Explainability output: model name, key parameters, prompt/method, 2-sentence rationale (NO chain-of-thought)
+
+

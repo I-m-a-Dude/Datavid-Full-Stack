@@ -7,7 +7,11 @@ interface MemberListProps {
 
 function MemberList({ members, onDelete }: MemberListProps) {
   if (members.length === 0) {
-    return <p>No members found. Add a member to get started!</p>;
+    return (
+      <div className="empty-state">
+        <p>No members found. Add a member to get started!</p>
+      </div>
+    );
   }
 
   return (
@@ -19,15 +23,20 @@ function MemberList({ members, onDelete }: MemberListProps) {
               {member.first_name} {member.last_name}
             </h3>
             <p>
-              📅 {new Date(member.birth_date).toLocaleDateString()}
+              📅 {new Date(member.birth_date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
             </p>
-            <p>
+            <div className="location-badge">
               📍 {member.city}, {member.country}
-            </p>
+            </div>
           </div>
           <button
             onClick={() => onDelete(member.id)}
             className="delete-btn"
+            aria-label={`Delete ${member.first_name} ${member.last_name}`}
           >
             Delete
           </button>

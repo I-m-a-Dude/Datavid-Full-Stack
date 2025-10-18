@@ -19,11 +19,3 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
-
-# Debug: Print to verify the API key is loaded (remove this in production)
-if __name__ == "__main__":
-    print(f"Looking for .env at: {BASE_DIR / '.env'}")
-    print(f".env exists: {(BASE_DIR / '.env').exists()}")
-    print(f"MISTRAL_API_KEY loaded: {'Yes' if settings.MISTRAL_API_KEY else 'No'}")
-    if settings.MISTRAL_API_KEY:
-        print(f"API Key (first 10 chars): {settings.MISTRAL_API_KEY[:10]}...")

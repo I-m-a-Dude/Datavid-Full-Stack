@@ -23,6 +23,7 @@ from controller import (
     generate_birthday_message
 )
 
+"""CORS and init stuff"""
 app = FastAPI(
     title="Member Birthday Management API",
     description="API for managing members and generating personalized birthday messages",
@@ -52,22 +53,19 @@ async def root():
     }
 
 
-# Member CRUD endpoints
+"""CRUD Endpoints"""
 @app.post("/members", response_model=MemberResponse, status_code=201)
 def create_new_member(member: MemberCreate, db: Session = Depends(get_db)):
-    """Create a new member with validation (age >= 18, unique constraint)"""
     return create_member(db, member)
 
 
 @app.get("/members", response_model=List[MemberResponse])
 def list_members(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    """Get all members"""
     return get_all_members(db, skip, limit)
 
 
 @app.get("/members/{member_id}", response_model=MemberResponse)
 def get_member_by_id(member_id: int, db: Session = Depends(get_db)):
-    """Get a specific member by ID"""
     return get_member(db, member_id)
 
 
@@ -77,27 +75,23 @@ def update_member_by_id(
         member_update: MemberUpdate,
         db: Session = Depends(get_db)
 ):
-    """Update a member's information"""
     return update_member(db, member_id, member_update)
 
 
 @app.delete("/members/{member_id}", status_code=204)
 def delete_member_by_id(member_id: int, db: Session = Depends(get_db)):
-    """Delete a member"""
     delete_member(db, member_id)
     return None
 
 
-# Birthday view endpoints
+"""Birthday-related Endpoints"""
 @app.get("/members/birthdays/upcoming", response_model=List[MemberWithUpcomingBirthday])
 def get_upcoming_birthdays(db: Session = Depends(get_db)):
-    """Get all members sorted by closest upcoming birthday (with year rollover)"""
     return get_members_sorted_by_upcoming_birthdays(db)
 
 
 @app.get("/members/birthdays/next-30-days", response_model=List[MemberWithUpcomingBirthday])
 def get_birthdays_next_30_days(db: Session = Depends(get_db)):
-    """Get members with birthdays in the next 30 days"""
     return get_members_with_birthdays_next_30_days(db)
 
 

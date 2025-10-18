@@ -1,5 +1,5 @@
-# Test your FastAPI endpoints
-# Make sure the server is running: uvicorn main:app --reload
+# Test for endpoints
+# Make sure the server is running or else it will fail.....
 
 ### Root endpoint
 GET http://127.0.0.1:8000/
@@ -17,7 +17,7 @@ Content-Type: application/json
   "city": "Los Angeles"
 }
 
-### Create another member (should fail - underage)
+### Create another member (will fail - underage)
 POST http://127.0.0.1:8000/members
 Content-Type: application/json
 
